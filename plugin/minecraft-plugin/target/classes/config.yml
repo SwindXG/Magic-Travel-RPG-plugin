@@ -1,0 +1,100 @@
+damage:
+  fire:
+    extra-per-point: 0.6
+    ignite-seconds-per-point: 0.2
+    max-ignite-seconds: 6
+  water:
+    extra-per-point: 0.5              # 每點 waterAttack 額外水傷
+    slow-seconds-per-point: 0.20       # 每點增加緩速秒數
+    max-slow-seconds: 5
+    slow-amplifier-every: 10           # 每 10 點等級+1（從 0 起算）
+    extinguish-fire: true              # 是否熄滅目標身上的火
+  ice:
+    extra-per-point: 0.55          # 每點冰攻擊 額外冰傷
+    slow-seconds-per-point: 0.30    # 每點加的緩速秒數
+    max-slow-seconds: 6
+    slow-amplifier-every: 12        # 每 12 點放大一級
+    freeze-chance-per-point: 0.02   # 每點 2% 凍結機率
+    max-freeze-chance: 0.6          # 凍結機率上限 60%
+    freeze-ticks: 40                # 成功時凍結 ticks（20=1秒)
+  wind:
+    extra-per-point: 0.45            # 每點 windAttack 額外風傷
+    knockback-base: 0.4              # 基礎水平擊退
+    knockback-per-point: 0.03        # 每點增加水平擊退
+    knockback-vertical: 0.25         # 固定微升空
+    speed-seconds-per-point: 0.10    # 每點替攻擊者增加加速秒數
+    max-speed-seconds: 4             # 加速秒數上限
+    speed-amplifier-every: 15        # 每 15 點多 1 級 (從 0 起)
+  lightning:
+    extra-per-point: 0.70              # 每點雷攻擊額外雷傷
+    chain:
+      enabled: true
+      max-targets: 3                   # 連鎖最多額外目標
+      radius: 6                        # 搜尋半徑
+      damage-scale-per-hop: 0.7        # 每跳遞減倍率
+    stun:
+      chance-per-point: 0.015          # 每點 1.5% 眩暈率
+      max-chance: 0.5                  # 上限 50%
+      ticks: 40                        # 眩暈 tick (2 秒)
+  grass:
+    extra-per-point: 0.40            # 每點 grassAttack 額外初始草傷
+    dot:
+      seconds-per-point: 0.35        # 每點給予 DoT 秒數
+      max-seconds: 6
+      damage-percent-per-second: 0.30 # 每秒造成 初始額外草傷 * 0.30
+      min-damage: 0.5                # 每跳最少傷害
+    lifesteal:
+      percent: 0.25                  # 初始草傷 + 所有 DoT 總和的 25% 回復攻擊者
+  dark:
+    extra-per-point: 0.65          # 每點暗攻擊初始額外暗傷
+    lifesteal-percent: 0.20        # 總暗額外傷害 * 20% 回復攻擊者
+    mark:
+      enabled: true
+      per-hit-stack: 1             # 每次 +1 層
+      max-stacks: 8
+      extra-damage-percent-per-stack: 0.05  # 每層 +5% 暗傷
+      expire-seconds: 6            # N 秒未續層則消失
+    wither:
+      chance-per-point: 0.01       # 每點 1% 機率
+      max-chance: 0.40
+      ticks: 60                    # 凋零時間 (tick)
+      amplifier: 0                 # 0=Wither I
+  light:
+    extra-per-point: 0.60          # 每點光攻擊初始額外光傷
+    heal-percent: 0.30             # 總光額外傷害 * 30% 回復自己
+    purify:
+      chance-per-point: 0.02       # 每點 2% 機率淨化
+      max-chance: 0.50             # 上限 50%
+      max-remove: 1                # 一次最多移除幾個負面效果
+    vs-dark:
+      enabled: true
+      damage-bonus-percent-per-dark-stack: 0.06  # 每層暗標記 +6% 光傷
+      max-bonus-percent: 0.60    
+damage-hologram:
+  enabled: true               # 是否啟用
+  decimal-places: 1           # 顯示小數位
+  prefix: "✧"                 # 文字前綴 (表情符號)
+  suffix: ""                  # 文字後綴
+  duration-ticks: 20          # 總存活時間
+  update-interval-ticks: 2    # 更新間隔 (越小越平滑)
+  rise-per-interval: 0.04     # 每次更新往上位移
+  y-offset: 0.5               # 基礎高度偏移 (頭頂往上)
+  format-negative: "&4-{damage}" # (未使用，保留擴充) 負值時格式
+  thousand-separator: false    # 是否加千分位
+  phases:                      # 依時間/比例模擬縮小 & 淡出 (timeRatio: 0~1)
+    - time-ratio: 0.0
+      text: "&c&l-{damage}"    # 開始：紅色粗體
+    - time-ratio: 0.5
+      text: "&c-{damage}"      # 中段：普通紅
+    - time-ratio: 0.85
+      text: "&7-{damage}"      # 結尾：灰色
+messages:
+  startup-log: "&a屁眼已啟動."
+  shutdown-log: "&c屁眼已關閉."
+  broadcast-start-enabled: false
+  broadcast-stop-enabled: false
+  broadcast-start: "&a[屁眼] 插件已啟動！"
+  broadcast-stop: "&c[屁眼] 插件已卸載！"
+damage-hologram:
+  random-radius: 0.6        # 水平隨機半徑 (0 = 關)
+  random-y-jitter: 0.25     # 上下隨機 (0 = 無)
