@@ -12,9 +12,7 @@ import java.io.IOException;           // IO 例外
 import org.bukkit.plugin.java.JavaPlugin; // Bukkit 插件基底類
 
 // 指令
-import com.example.command.PlayerInfoCommand;   // /mtplayerinfo
-import com.example.command.ReloadPluginCommand; // /mtreload
-import com.example.command.AdminCommand;      // /mt admin <subcommand>
+import com.example.command.MtrootCommand;      // /mt <subcommand>
 
 // 玩家資料與屬性
 import com.example.data.PlayerAttribute;    // 玩家屬性資料模型
@@ -82,10 +80,10 @@ public class Main extends JavaPlugin {
         logColored(startupLog);              // 控制台顯示啟動訊息（允許彩色）
         if (broadcastStart) broadcastColored(broadcastStartMsg); // 可選廣播
 
-        // 指令綁定
-        getCommand("mtreload").setExecutor(new ReloadPluginCommand(this));
-        getCommand("mtplayerinfo").setExecutor(new PlayerInfoCommand(this));
-        getCommand("mt").setExecutor(new AdminCommand(this));
+        // 指令綁定為單一 /mt
+        com.example.command.MtrootCommand root = new com.example.command.MtrootCommand(this);
+        getCommand("mt").setExecutor(root);
+        getCommand("mt").setTabCompleter(root);
 
         // 事件監聽器註冊（每個元素傷害邏輯自行在對應 Listener 中實作）
         getServer().getPluginManager().registerEvents(new FireAttackListener(this), this);
